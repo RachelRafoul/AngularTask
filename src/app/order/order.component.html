@@ -1,0 +1,97 @@
+<p-toast key="tc"></p-toast>
+<form *ngIf="orderForm" [formGroup]="orderForm"  (submit)="onFormSubmit()">
+    <div class="container">
+        <div class="row flex justify-content-right my-3">
+            <div class="col-2">
+                <label class="lables" for="float-input"> תאריך הלוך </label>
+                <span id="float-input">{{orderForm.value.dateAwaySide |date:"dd/MM/yyyy" }}</span>
+            </div>
+            <div class="col-2">
+                <label class="lables" for="float-input"> בשעה</label>
+                <span id="float-input">{{tempModel.timeAway }}</span>
+                <div class="divErr">
+                </div>
+            </div>
+            <div class="col-2">
+                <label for="float-input-invalid"> תאריך חזור </label>
+                <p>{{orderForm.value.dateBackSide | date:"dd/MM/yyyy"}}</p>
+                <div class="divErr">
+                </div>
+            </div>
+            <div class="col-2">
+                <label class="lables" for="float-input"> בשעה</label>
+                <span id="float-input">{{tempModel.timeBack}}</span>
+                <div class="divErr">
+                </div>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-2 flex justify-content-right">
+                <label for="float-input">מספר מבוגרים</label>
+                <input id="float-input" class="inputs" formControlName="numOfAdoultOrders" name="numOfAdoultOrders"
+                    type="number" pInputText (ngModelChange)="countAdoult()"
+                    [ngClass]="isValid('numOfAdoultOrders')?'ng-invalid ng-dirty':''">
+
+                <div class="divErr">
+                    <span class="help-block" *ngIf="btnSave==true||((orderForm.get('numOfAdoultOrders').touched || orderForm.get('numOfAdoultOrders').dirty ) &&
+                    orderForm.get('numOfAdoultOrders').errors)">
+                        <span class="invalid-feedback err" *ngIf="orderForm.get('numOfAdoultOrders').errors?.required">
+                            מספר מבוגרים זהו שדה חובה
+                        </span>
+                        <span class="invalid-feedback err" *ngIf="orderForm.get('numOfAdoultOrders').errors?.max">
+                           סך המבוגרים עם הילדים הינו 15  
+                        </span>
+                        <span class="invalid-feedback err" *ngIf="orderForm.get('numOfAdoultOrders').errors?.min">
+                            הכנס מספר תקין 
+                         </span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-2">
+                <label for="float-input-invalid">מספר
+                    ילדים
+                </label>
+                <input class="inputs" formControlName="numOfChildrenOrders"  name="numOfChildrenOrders" type="number"
+                 [ngClass]="isValid('numOfAdoultOrders')?'ng-invalid ng-dirty':''" (ngModelChange)="countChild()">
+
+                 <div class="divErr">
+                    <span class="help-block" *ngIf="btnSave==true||((orderForm.get('numOfChildrenOrders').touched || orderForm.get('numOfChildrenOrders').dirty ) &&
+                    orderForm.get('numOfChildrenOrders').errors)">
+                        <span class="invalid-feedback err" *ngIf="orderForm.get('numOfChildrenOrders').errors?.required">
+                            מספר ילדים זהו שדה חובה
+                        </span>
+                        <span class="invalid-feedback err" *ngIf="orderForm.get('numOfChildrenOrders').errors?.max">
+                           סך המבוגרים עם הילדים הינו 15  
+                        </span>
+                        <span class="invalid-feedback err" *ngIf="orderForm.get('numOfChildrenOrders').errors?.min">
+                            הכנס מספר תקין 
+                         </span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-2">
+                <label for="float-input-invalid">מספר
+                    טלפון
+                </label>
+                <input class="inputs" formControlName="phone" name="phone" type="text" minlength="9" pInputText
+                    [ngClass]="isValid('phone')?'ng-invalid ng-dirty':''">
+
+                <div class="divErr">
+                    <span class="help-block" *ngIf="btnSave==true||((orderForm.get('phone').touched || orderForm.get('phone').dirty ) &&
+                    orderForm.get('phone').errors)">
+                        <span class="invalid-feedback err" *ngIf="orderForm.get('phone').errors?.required">
+                            מספר טלפון זהו שדה חובה
+                        </span>
+                        <span class="invalid-feedback err" *ngIf="orderForm.get('phone').errors?.maxlength">
+                            הכנס מספר תקין 
+                         </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button pButton class="p-button-rounded"
+     type="submit">סיים הזמנה</button>
+</form>

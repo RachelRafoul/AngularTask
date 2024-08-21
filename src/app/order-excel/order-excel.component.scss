@@ -1,0 +1,17 @@
+.p-button.p-button-rounded {
+    margin-top: 3%;
+    background-color: rgb(252, 120, 67);
+    border: 1px solid white;
+}
+::ng-deep .p-selectbutton .p-button.p-highlight:hover {
+    background-color: rgb(252, 120, 67);
+    border-color: white;
+}
+
+::ng-deep .p-selectbutton .p-button.p-highlight {
+    background-color: rgb(252, 120, 67);
+    border-color: white;
+}
+.row{
+    justify-content: center !important;
+}

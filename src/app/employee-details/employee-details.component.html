@@ -1,0 +1,37 @@
+
+<!-- <div id="form-container">
+    <form [formGroup]="employeeDetailForm">
+        <div class="container">
+                    <span>Name:</span>
+                    <p-input formControlName="name">
+                    </p-input>
+                    
+        </div>
+    </form>
+</div> -->
+
+<form [formGroup]="employeeDetailForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" type="text">
+     
+    </div>
+  
+    <div>
+      <label for="salary">Salary:</label>
+      <input id="salary" formControlName="salary" type="text">
+   
+    </div>
+  
+    <div>
+      <label for="dueDate">Due Date:</label>
+      <input id="dueDate" formControlName="dueDate" type="date">
+   
+    </div>
+  
+    <div>
+      <label for="age">Age:</label>
+      <input id="age" formControlName="age" type="number">
+    </div>
+  <button type="submit"></button>
+  </form>

@@ -1,0 +1,88 @@
+<a href="/login"> admin</a>
+
+<p-card class=" loginCard">
+    <div id="form-container">
+        <form *ngIf="baseForm" [formGroup]="baseForm">
+            <div class="container">
+                <div class="my-3 row">
+                    <div class="col-8">
+                        <span>בחר קו:</span>
+                        <p-autoComplete class="colo" dir="ltr" formControlName="line" [dropdown]="true"
+                            [suggestions]="filteredTrips" (completeMethod)="filterTrips($event)" field="desc"
+                            (ngModelChange)="getDate()">
+                        </p-autoComplete>
+                        <div class="divErr">
+                            <span class="help-block" *ngIf="ifOrder==false||((baseForm.get('line').touched || baseForm.get('line').dirty ) &&
+                baseForm.get('line').errors)">
+                                <span class="invalid-feedback err" *ngIf="baseForm.get('line').errors?.required">
+                                    חובה לבחור קו </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 mx-3">
+                        <span> בחר תאריך הלוך:</span>
+                        <p-calendar dir="ltr" class="inputs ex calendar " inputId="calendar" dateFormat="dd/mm/yy"
+                            formControlName="dateTripAway" [maxDate]="maxDate"
+                            (ngModelChange)="checkDateAway(baseForm.value.dateTripAway)">
+                        </p-calendar>
+                        <div class="divErr">
+                            <span class="invalid-feedback err"
+                                *ngIf="!isDate&&(this.baseForm.get('dateTripAway').touched&&this.baseForm.get('dateTripAway').dirty&&this.baseForm.get('line').dirty)">
+                                אין נסיעות לקו זה בתאריך הנבחר
+                            </span>
+                            <span class="help-block" *ngIf="ifOrder==false||((baseForm.get('dateTripAway').touched || baseForm.get('dateTripAway').dirty ) &&
+                        baseForm.get('dateTripAway').errors)">
+                                <span class="invalid-feedback err"
+                                    *ngIf="baseForm.get('dateTripAway').errors?.required">
+                                    חובה לבחור תאריך הלוך </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-4 mx-3">
+                        <label>בחר תאריך חזור: </label>
+                        <p-calendar dir="ltr" class="inputs ex calendar " inputId="calendar" dateFormat="dd/mm/yy"
+                            formControlName="dateTripBack" [maxDate]="maxDate"
+                            (ngModelChange)="checkDateBack(baseForm.value.dateTripBack)">
+                        </p-calendar>
+                        <div class="divErr">
+                            <span class="invalid-feedback err"
+                                *ngIf="!isDateBack&&(this.baseForm.get('dateTripBack').touched&&this.baseForm.get('dateTripBack').dirty&&this.baseForm.get('line').dirty)">
+                                אין נסיעות לקו זה בתאריך הנבחר
+                            </span>
+                            <span class="help-block" *ngIf="ifOrder==false||((baseForm.get('dateTripBack').touched || baseForm.get('dateTripBack').dirty ) &&
+                        baseForm.get('dateTripBack').errors)">
+                                <span class="invalid-feedback err"
+                                    *ngIf="baseForm.get('dateTripBack').errors?.required">
+                                    חובה לבחור תאריך חזור </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <span>
+                            בחר שעת הלוך
+                        </span>
+                        <p-dropdown [options]="timesForLineAway" [(ngModel)]="selectedTimeAway"
+                            [ngModelOptions]="{standalone: true}"></p-dropdown>
+                    </div>
+                    <div class="col-4">
+                        <span for="float-input-invalid">
+                            בחר שעת חזור
+                        </span>
+                        <p-dropdown [options]="timesForLineBack" [(ngModel)]="selectedTimeBack"
+                            [ngModelOptions]="{standalone: true}"></p-dropdown>
+                    </div>
+                </div>
+                <button pButton class="p-button-rounded" (click)="order()">הזמן כרטיס</button>
+
+                <app-order *ngIf="ifShow" [tempModel]="tempModel"></app-order>
+
+
+            </div>
+        </form>
+    </div>
+</p-card>
+

@@ -1,0 +1,42 @@
+
+
+<div [formGroup]="filterForm">
+    <input pInputText type="text" formControlName="filterBySalary" (input)="SearchBySalary()"
+        placeholder="Search by Salary" />
+    <input pInputText type="button" (click)="filterBySalary()" />
+    <input pInputText type="text" formControlName="filterById" (input)="searchById()" placeholder="Search by ID" />
+    <input pInputText type="button" (click)="filterByAge()" />
+</div>
+
+<button (click)="addEmployee()">Create A New Employee</button>
+
+
+<p-table [value]="filteredEmployees">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID
+            </th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>Due Date</th>
+            <th>Age</th>
+        </tr>
+        <tr>
+            <th colspan="5"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData>
+        <tr (dblclick)="showSelectedEmployee(rowData)">
+            <td>{{ rowData.id }}</td>
+            <td>{{ rowData.name }}</td>
+            <td>{{ rowData.salary }}</td>
+            <td>{{ rowData.dueDate }}</td>
+            <td>{{ rowData.age }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<div *ngIf="this._EmployeeService.employeeToShowBool">
+    <div (click)="closeDetails()"> X </div>
+    <app-employee-details [gotEmployee]="EmployeesToShow"></app-employee-details>
+</div>
